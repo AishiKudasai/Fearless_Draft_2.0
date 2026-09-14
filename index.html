@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="style.css">
+<title>MLBB Fearless Draft — Operator</title>
+</head>
+
+<body data-view="operator">
+
+<!-- =====================================================
+     SETUP SCREEN
+===================================================== -->
+<div id="setupScreen">
+    <div class="setup-card">
+
+        <div class="setup-title">FEARLESS DRAFT</div>
+        <div class="setup-sub">MLBB TOURNAMENT DRAFT SYSTEM — OPERATOR CONSOLE</div>
+
+        <div class="setup-section">
+            <div class="setup-section-title">TOURNAMENT</div>
+            <div class="setup-tournament-grid">
+                <input id="tournamentName" class="setup-input" value="MLBB CHAMPIONSHIP SERIES" placeholder="Tournament name">
+                <input id="matchName" class="setup-input" value="GRAND FINALS" placeholder="Match name (e.g. Grand Finals)">
+                <label class="logo-upload">
+                    <img id="setupTournamentLogoPreview" class="logo-preview" alt="" style="display:none;">
+                    <span>+ TOURNAMENT LOGO</span>
+                    <input id="tournamentLogoInput" type="file" accept="image/*" hidden>
+                </label>
+            </div>
+        </div>
+
+        <div class="setup-grid">
+
+            <div class="setup-team blue">
+                <h3>BLUE TEAM</h3>
+                <input id="teamA" class="setup-input" value="BLUE TEAM" placeholder="Team name">
+                <label class="logo-upload small">
+                    <img id="setupTeamLogoPreviewA" class="logo-preview" alt="" style="display:none;">
+                    <span>+ TEAM LOGO</span>
+                    <input id="teamLogoInputA" type="file" accept="image/*" hidden>
+                </label>
+                <div id="setupPlayersA" class="setup-player-list"></div>
+            </div>
+
+            <div class="setup-team red">
+                <h3>RED TEAM</h3>
+                <input id="teamB" class="setup-input" value="RED TEAM" placeholder="Team name">
+                <label class="logo-upload small">
+                    <img id="setupTeamLogoPreviewB" class="logo-preview" alt="" style="display:none;">
+                    <span>+ TEAM LOGO</span>
+                    <input id="teamLogoInputB" type="file" accept="image/*" hidden>
+                </label>
+                <div id="setupPlayersB" class="setup-player-list"></div>
+            </div>
+
+        </div>
+
+        <div class="setup-options">
+            <div class="option-box">
+                <label>SERIES FORMAT</label>
+                <select id="format">
+                    <option value="bo1">BEST OF 1</option>
+                    <option value="bo3" selected>BEST OF 3</option>
+                    <option value="bo5">BEST OF 5</option>
+                    <option value="bo7">BEST OF 7</option>
+                </select>
+            </div>
+            <div class="option-box">
+                <label>PICK TIMER</label>
+                <select id="timerSeconds">
+                    <option value="5">5 SECONDS</option>
+                    <option value="10">10 SECONDS</option>
+                    <option value="15">15 SECONDS</option>
+                    <option value="20">20 SECONDS</option>
+                    <option value="30" selected>30 SECONDS</option>
+                    <option value="45">45 SECONDS</option>
+                    <option value="60">60 SECONDS</option>
+                </select>
+            </div>
+        </div>
+
+        <button id="startDraftBtn" class="start-btn">START FEARLESS DRAFT</button>
+
+    </div>
+</div>
+
+
+<!-- =====================================================
+     APPLICATION
+===================================================== -->
+<div id="app" class="hidden">
+<div id="stage">
+
+<header class="topbar">
+    <div class="team-score blue">
+        <img id="teamLogoA" class="team-logo" alt="" style="display:none;">
+        <span id="displayTeamA">BLUE TEAM</span>
+        <span class="score-number" id="scoreA">0</span>
+    </div>
+
+    <div class="center-score">
+        <img id="tournamentLogo" class="center-score-logo" alt="" style="display:none;">
+        <div id="seriesLabel" class="series-label">BO3</div>
+        <div id="timer" class="timer">30</div>
+        <div id="gameProgress" class="game-progress">GAME 1 OF 3</div>
+    </div>
+
+    <div class="team-score red">
+        <span class="score-number" id="scoreB">0</span>
+        <span id="displayTeamB">RED TEAM</span>
+        <img id="teamLogoB" class="team-logo" alt="" style="display:none;">
+    </div>
+</header>
+
+    <section class="main">
+
+        <aside class="side-panel blue">
+            <div class="side-title blue"><span id="sideTeamA">BLUE TEAM</span></div>
+            <div id="playersA" class="players"></div>
+            <div class="current-picks">
+                <div class="current-title">FEARLESS LOCKED</div>
+                <div id="currentIconsA" class="current-icons"></div>
+            </div>
+        </aside>
+
+        <main class="center">
+            <div id="centerBackdrop" class="center-backdrop"></div>
+
+            <div class="center-content">
+
+                <div class="turnbar">
+                    <div id="turnA" class="turn-team blue">BLUE</div>
+                    <div>PLAYER PICK</div>
+                    <div id="turnB" class="turn-team red">RED TEAM</div>
+                </div>
+
+                <div class="featured">
+                    <div class="featured-art">
+                        <img id="featuredImage" alt="Selected Hero">
+                    </div>
+                    <div class="featured-info">
+                        <div class="featured-small">LAST PICK</div>
+                        <div id="featuredName" class="featured-name">—</div>
+                        <div id="featuredStatus" class="featured-status">WAITING FOR PICK</div>
+                    </div>
+                </div>
+
+                <div class="role-filter" id="laneFilterBar">
+                    <button type="button" class="role-btn active" data-lane="ALL">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="14" y="14" width="7" height="7" rx="1.2"/></svg>
+                        <span>ALL</span>
+                    </button>
+                    <button type="button" class="role-btn" data-lane="EXP">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19L15.5 8.5"/><path d="M13 5.5L17 3l4 4-2.5 4"/><path d="M9 15l-3.2 1-0.8 3.2 3.2-0.8 1-3.2z"/></svg>
+                        <span>EXP LANE</span>
+                    </button>
+                    <button type="button" class="role-btn" data-lane="MID">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/></svg>
+                        <span>MID LANE</span>
+                    </button>
+                    <button type="button" class="role-btn" data-lane="GOLD">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+                        <span>GOLD LANE</span>
+                    </button>
+                    <button type="button" class="role-btn" data-lane="JUNGLE">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l7.5 7.5"/><path d="M11.5 11.5l-2 6-3 1 1-3 2-6"/><path d="M20 4l-7.5 7.5"/><path d="M12.5 11.5l2 6 3 1-1-3-2-6"/></svg>
+                        <span>JUNGLE</span>
+                    </button>
+                    <button type="button" class="role-btn" data-lane="ROAM">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-9.2-8.8C1.4 8 3 5.2 6 5.2c2 0 3.2 1.2 3.9 2.3.7-1.1 2-2.3 4-2.3 3 0 4.6 2.8 3.3 6C19 15.6 12 20 12 20z"/><path d="M12 9v4M10 11h4"/></svg>
+                        <span>ROAM</span>
+                    </button>
+                </div>
+
+                <div class="role-filter hidden" id="roleFilterBar">
+                    <button type="button" class="role-btn active" data-role="ALL">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="14" y="14" width="7" height="7" rx="1.2"/></svg>
+                        <span>ALL</span>
+                    </button>
+                    <button type="button" class="role-btn" data-role="TANK">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.2 8.5-7 10-3.8-1.5-7-5-7-10V6l7-3z"/></svg>
+                        <span>TANK</span>
+                    </button>
+                    <button type="button" class="role-btn" data-role="FIGHTER">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19L15.5 8.5"/><path d="M13 5.5L17 3l4 4-2.5 4"/><path d="M9 15l-3.2 1-0.8 3.2 3.2-0.8 1-3.2z"/></svg>
+                        <span>FIGHTER</span>
+                    </button>
+                    <button type="button" class="role-btn" data-role="ASSASSIN">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l7.5 7.5"/><path d="M11.5 11.5l-2 6-3 1 1-3 2-6"/><path d="M20 4l-7.5 7.5"/><path d="M12.5 11.5l2 6 3 1-1-3-2-6"/></svg>
+                        <span>ASSASSIN</span>
+                    </button>
+                    <button type="button" class="role-btn" data-role="MAGE">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/></svg>
+                        <span>MAGE</span>
+                    </button>
+                    <button type="button" class="role-btn" data-role="MARKSMAN">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+                        <span>MARKSMAN</span>
+                    </button>
+                    <button type="button" class="role-btn" data-role="SUPPORT">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-9.2-8.8C1.4 8 3 5.2 6 5.2c2 0 3.2 1.2 3.9 2.3.7-1.1 2-2.3 4-2.3 3 0 4.6 2.8 3.3 6C19 15.6 12 20 12 20z"/><path d="M12 9v4M10 11h4"/></svg>
+                        <span>SUPPORT</span>
+                    </button>
+                </div>
+
+                <div class="filters">
+                    <input id="search" type="text" placeholder="SEARCH HERO...">
+                    <div class="filter-label" id="filterModeToggle" title="Click to switch between lane and role filter">LANE FILTER ⇄</div>
+                </div>
+
+                <div class="hero-area">
+                    <div class="available-title">
+                        <span>AVAILABLE HEROES</span>
+                        <span id="availableCount" style="margin-left:auto">0</span>
+                    </div>
+                    <div id="heroGrid" class="hero-grid"></div>
+                </div>
+
+            </div>
+        </main>
+
+        <aside class="side-panel red">
+            <div class="side-title red"><span id="sideTeamB">RED TEAM</span></div>
+            <div id="playersB" class="players"></div>
+            <div class="current-picks">
+                <div class="current-title">FEARLESS LOCKED</div>
+                <div id="currentIconsB" class="current-icons"></div>
+            </div>
+        </aside>
+
+    </section>
+
+    <footer class="bottom">
+        <button id="pauseBtn" class="control-btn" title="Space">PAUSE</button>
+        <button id="addTimeBtn" class="control-btn" title="+">+10s</button>
+        <button id="skipBtn" class="control-btn">SKIP TURN</button>
+        <button id="undoBtn" class="control-btn" title="Ctrl+Z">UNDO</button>
+        <button id="redoBtn" class="control-btn" title="Ctrl+Y">REDO</button>
+
+        <div class="progress-wrap">
+            <div id="progressText" class="progress-text">DRAFT 0 / 10</div>
+            <div class="progress-bar"><div id="progressFill" class="progress-fill"></div></div>
+        </div>
+
+        <button id="muteBtn" class="control-btn">MUTE</button>
+        <button id="swapSidesBtn" class="control-btn">SWAP SIDES</button>
+        <button id="resetDraftBtn" class="control-btn danger">RESET DRAFT</button>
+        <button id="resetMatchBtn" class="control-btn danger">RESET MATCH</button>
+        <button id="exportBtn" class="control-btn">EXPORT</button>
+        <button id="importBtn" class="control-btn">IMPORT</button>
+        <input id="importInput" type="file" accept="application/json" hidden>
+        <button id="matchHistoryBtn" class="control-btn">MATCH HISTORY</button>
+        <button id="backToSetupBtn" class="control-btn danger">SETUP</button>
+    </footer>
+
+    <div id="resultPanel" class="result-panel hidden">
+        <div class="result-box">
+            <div class="result-eyebrow">DRAFT COMPLETE</div>
+            <div class="result-title">GAME RESULT</div>
+            <div class="result-buttons">
+                <button id="blueWinBtn" class="winner-btn blue">BLUE TEAM WIN</button>
+                <button id="redWinBtn" class="winner-btn red">RED TEAM WIN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MATCH COMPLETE CELEBRATION -->
+    <div id="matchCompleteOverlay" class="match-complete-overlay hidden">
+        <div class="match-complete-box">
+            <div class="mc-eyebrow">SERIES COMPLETE</div>
+            <h1 id="championName">—</h1>
+            <p>SERIES WINNER</p>
+            <div id="championScore" class="mc-score">0 - 0</div>
+            <button id="newSeriesBtn" class="start-btn">NEW SERIES</button>
+        </div>
+    </div>
+
+    <!-- MATCH HISTORY: operator-only side drawer -->
+    <aside id="matchHistoryPanel" class="match-history-drawer hidden" aria-label="Match History">
+        <div class="match-history-drawer-head">
+            <div>
+                <div class="history-panel-title">MATCH HISTORY</div>
+                <div class="match-history-drawer-sub">COMPLETED GAMES</div>
+            </div>
+            <button id="closeMatchHistoryBtn" class="control-btn tiny" type="button" aria-label="Close Match History">CLOSE</button>
+        </div>
+        <div id="matchHistoryList" class="match-history-list"></div>
+    </aside>
+
+</div>
+<!-- /#stage -->
+</div>
+<!-- /#app -->
+
+<div id="heroPreview" class="hero-preview">
+    <img alt="">
+    <div class="hp-name"></div>
+    <div class="hp-role"></div>
+</div>
+
+<div id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
