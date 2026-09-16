@@ -139,44 +139,54 @@
                 </div>
 
                 <div class="featured">
-                    <div class="featured-art">
-                        <img id="featuredImage" alt="Selected Hero">
+
+                    <div class="stage-wrapper">
+                        <div id="cardStage" class="active-team-blue">
+
+                            <div class="light-halo"></div>
+
+                            <svg class="energy-ring-svg" viewBox="0 0 240 240" aria-hidden="true">
+                                <circle class="ring-track ring-outer" cx="120" cy="120" r="108" fill="none" stroke-width="1"/>
+                                <circle class="ring-track ring-dashed" cx="120" cy="120" r="94" fill="none" stroke-width="1.5" stroke-dasharray="2 10" stroke-linecap="round"/>
+                                <circle class="ring-track ring-inner" cx="120" cy="120" r="80" fill="none" stroke-width="1"/>
+                                <g class="ring-ticks">
+                                    <line x1="120" y1="10" x2="120" y2="24"/>
+                                    <line x1="120" y1="230" x2="120" y2="216"/>
+                                    <line x1="10" y1="120" x2="24" y2="120"/>
+                                    <line x1="230" y1="120" x2="216" y2="120"/>
+                                </g>
+                            </svg>
+
+                            <div class="pedestal-container">
+                                <div class="pedestal-top-plate"></div>
+                                <div class="pedestal-seam"></div>
+                                <div class="pedestal-bevel left"></div>
+                                <div class="pedestal-bevel right"></div>
+                                <div class="pedestal-riser"></div>
+                                <div class="pedestal-ground-glow"></div>
+                            </div>
+
+                            <div class="stage-hero-card">
+                                <div class="stage-hero-card-art">
+                                    <img id="featuredImage" alt="Selected Hero">
+                                </div>
+                                <div class="stage-hero-card-glass"></div>
+                                <div class="stage-hero-card-shine"></div>
+                                <div class="stage-hero-card-frame"></div>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="featured-info">
+
+                    <div class="hero-info-overlay">
                         <div class="featured-small">LAST PICK</div>
                         <div id="featuredName" class="featured-name">—</div>
                         <div id="featuredStatus" class="featured-status">WAITING FOR PICK</div>
                     </div>
+
                 </div>
 
-                <div class="role-filter" id="laneFilterBar">
-                    <button type="button" class="role-btn active" data-lane="ALL">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="14" y="14" width="7" height="7" rx="1.2"/></svg>
-                        <span>ALL</span>
-                    </button>
-                    <button type="button" class="role-btn" data-lane="EXP">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19L15.5 8.5"/><path d="M13 5.5L17 3l4 4-2.5 4"/><path d="M9 15l-3.2 1-0.8 3.2 3.2-0.8 1-3.2z"/></svg>
-                        <span>EXP LANE</span>
-                    </button>
-                    <button type="button" class="role-btn" data-lane="MID">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/></svg>
-                        <span>MID LANE</span>
-                    </button>
-                    <button type="button" class="role-btn" data-lane="GOLD">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
-                        <span>GOLD LANE</span>
-                    </button>
-                    <button type="button" class="role-btn" data-lane="JUNGLE">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l7.5 7.5"/><path d="M11.5 11.5l-2 6-3 1 1-3 2-6"/><path d="M20 4l-7.5 7.5"/><path d="M12.5 11.5l2 6 3 1-1-3-2-6"/></svg>
-                        <span>JUNGLE</span>
-                    </button>
-                    <button type="button" class="role-btn" data-lane="ROAM">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-9.2-8.8C1.4 8 3 5.2 6 5.2c2 0 3.2 1.2 3.9 2.3.7-1.1 2-2.3 4-2.3 3 0 4.6 2.8 3.3 6C19 15.6 12 20 12 20z"/><path d="M12 9v4M10 11h4"/></svg>
-                        <span>ROAM</span>
-                    </button>
-                </div>
-
-                <div class="role-filter hidden" id="roleFilterBar">
+                <div class="role-filter" id="roleFilterBar">
                     <button type="button" class="role-btn active" data-role="ALL">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="14" y="14" width="7" height="7" rx="1.2"/></svg>
                         <span>ALL</span>
@@ -207,9 +217,39 @@
                     </button>
                 </div>
 
+                <div class="role-filter lane-filter hidden" id="laneFilterBar">
+                    <button type="button" class="role-btn active" data-lane="ALL">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="14" y="14" width="7" height="7" rx="1.2"/></svg>
+                        <span>ALL</span>
+                    </button>
+                    <button type="button" class="role-btn" data-lane="EXP">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19L15.5 8.5"/><path d="M13 5.5L17 3l4 4-2.5 4"/><path d="M9 15l-3.2 1-0.8 3.2 3.2-0.8 1-3.2z"/></svg>
+                        <span>EXP</span>
+                    </button>
+                    <button type="button" class="role-btn" data-lane="JUNGLE">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l7.5 7.5"/><path d="M11.5 11.5l-2 6-3 1 1-3 2-6"/><path d="M20 4l-7.5 7.5"/><path d="M12.5 11.5l2 6 3 1-1-3-2-6"/></svg>
+                        <span>JUNGLE</span>
+                    </button>
+                    <button type="button" class="role-btn" data-lane="MID">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5L18 18M18 6l-2.5 2.5M8.5 15.5L6 18"/></svg>
+                        <span>MID</span>
+                    </button>
+                    <button type="button" class="role-btn" data-lane="GOLD">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+                        <span>GOLD</span>
+                    </button>
+                    <button type="button" class="role-btn" data-lane="ROAM">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-9.2-8.8C1.4 8 3 5.2 6 5.2c2 0 3.2 1.2 3.9 2.3.7-1.1 2-2.3 4-2.3 3 0 4.6 2.8 3.3 6C19 15.6 12 20 12 20z"/><path d="M12 9v4M10 11h4"/></svg>
+                        <span>ROAM</span>
+                    </button>
+                </div>
+
                 <div class="filters">
                     <input id="search" type="text" placeholder="SEARCH HERO...">
-                    <div class="filter-label" id="filterModeToggle" title="Click to switch between lane and role filter">LANE FILTER ⇄</div>
+                    <div class="filter-mode-toggle" id="filterModeToggle">
+                        <button type="button" class="mode-btn active" data-mode="role">ROLE</button>
+                        <button type="button" class="mode-btn" data-mode="lane">LANE</button>
+                    </div>
                 </div>
 
                 <div class="hero-area">
@@ -305,4 +345,4 @@
 <div id="toast"></div>
 <script src="script.js"></script>
 </body>
-</html>
+     </html>
