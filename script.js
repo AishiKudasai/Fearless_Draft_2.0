@@ -146,13 +146,50 @@ const HEROES = [
 ];
 
 const ROLE_MAP = {
-"TANK":["Tigreal","Akai","Franco","Minotaur","Lolita","Johnson","Gatotkaca","Grock","Hylos","Khufra","Belerick","Atlas","Gloo","Edith","Chip","Baxia"],
-"FIGHTER":["Balmond","Alucard","Zilong","Freya","Sun","Alpha","Ruby","Roger","Lapu-Lapu","Argus","Jawhead","Martis","Uranus","Aldous","Leomord","Hanzo","Thamuz","Minsitthar","Badang","Guinevere","Esmeralda","Terizla","X.Borg","Dyrroth","Silvanna","Yu Zhong","Benedetta","Khaleed","Barats","Paquito","Phoveus","Aulus","Yin","Julian","Fredrinn","Joy","Arlott","Cici","Lukas","Obsidia","Chou","Masha"],
-"ASSASSIN":["Saber","Karina","Fanny","Hayabusa","Natalia","Lancelot","Gusion","Helcurt","Selena","Ling","Aamon","Joy","Arlott","Nolan","Suyou","Hanzo","Hirara","Sora"],
-"MAGE":["Alice","Nana","Eudora","Gord","Kagura","Cyclops","Aurora","Vexana","Harley","Odette","Zhask","Pharsa","Valir","Chang'e","Vale","Lunox","Kadita","Yve","Luo Yi","Cecilion","Xavier","Novaria","Zhuxin","Valentina","Carmilla","Zetian","Lylia"],
-"MARKSMAN":["Miya","Bruno","Clint","Layla","Moskov","Karrie","Irithel","Lesley","Claude","Kimmy","Granger","Wanwan","Beatrix","Natan","Melissa","Ixia","Brody","Hanabi","Popol and Kupa"],
-"SUPPORT":["Rafaela","Estes","Diggie","Angela","Kaja","Mathilda","Floryn","Carmilla","Faramis"]
+  "TANK": [
+    "Akai","Alice","Atlas","Barats","Baxia","Belerick","Carmilla","Chip",
+    "Edith","Esmeralda","Franco","Fredrinn","Gatotkaca","Gloo","Grock",
+    "Hilda","Hylos","Johnson","Khufra","Lolita","Masha","Minotaur",
+    "Terizla","Tigreal","Uranus"
+  ],
+
+  "FIGHTER": [
+    "Aldous","Alpha","Alucard","Argus","Arlott","Aulus","Badang","Balmond",
+    "Bane","Barats","Cici","Chou","Dyrroth","Fredrinn","Freya","Gatotkaca",
+    "Grock","Guinevere","Hilda","Jawhead","Julian","Kalea","Khaleed",
+    "Lapu-Lapu","Leomord","Lukas","Martis","Masha","Minsitthar","Paquito",
+    "Phoveus","Roger","Ruby","Silvanna","Sora","Sun","Suyou","Terizla",
+    "Thamuz","X.Borg","Yin","Yu Zhong","Zilong"
+  ],
+
+  "ASSASSIN": [
+    "Aamon","Alucard","Arlott","Benedetta","Fanny","Gusion","Hanzo","Harley",
+    "Hayabusa","Helcurt","Hirara","Joy","Julian","Kadita","Karina","Lancelot",
+    "Lesley","Ling","Mathilda","Natalia","Nolan","Paquito","Saber","Selena",
+    "Sora","Suyou","Yi Sun-Shin","Zilong"
+  ],
+
+  "MAGE": [
+    "Alice","Aurora","Bane","Cecilion","Chang'e","Cyclops","Esmeralda",
+    "Eudora","Faramis","Gord","Harith","Harley","Kadita","Kagura","Kimmy",
+    "Lunox","Luo Yi","Lylia","Nana","Novaria","Odette","Pharsa","Selena",
+    "Vale","Valir","Valentina","Vexana","Xavier","Yve","Zetian","Zhask",
+    "Zhuxin"
+  ],
+
+  "MARKSMAN": [
+    "Beatrix","Brody","Bruno","Claude","Clint","Edith","Granger","Hanabi",
+    "Irithel","Ixia","Karrie","Kimmy","Layla","Lesley","Melissa","Miya",
+    "Moskov","Natan","Obsidia","Popol and Kupa","Roger","Wanwan",
+    "Yi Sun-Shin"
+  ],
+
+  "SUPPORT": [
+    "Angela","Carmilla","Chip","Diggie","Estes","Floryn","Johnson","Kaja",
+    "Kalea","Lolita","Marcel","Mathilda","Minotaur","Rafaela"
+  ]
 };
+
 
 function getRole(hero){
     for(const role in ROLE_MAP){ if(ROLE_MAP[role].includes(hero)) return role; }
@@ -160,12 +197,46 @@ function getRole(hero){
 }
 
 const LANE_MAP = {
-EXP:["Balmond","Alucard","Zilong","Freya","Sun","Alpha","Ruby","Lapu-Lapu","Argus","Martis","Uranus","Aldous","Leomord","Thamuz","Minsitthar","Badang","Guinevere","Esmeralda","Terizla","X.Borg","Dyrroth","Silvanna","Yu Zhong","Benedetta","Khaleed","Barats","Paquito","Phoveus","Aulus","Yin","Julian","Fredrinn","Arlott","Cici","Lukas","Chou"],
-MID:["Alice","Nana","Eudora","Gord","Kagura","Cyclops","Aurora","Vexana","Harley","Odette","Zhask","Pharsa","Valir","Chang'e","Vale","Lunox","Kadita","Yve","Luo Yi","Cecilion","Xavier","Novaria","Valentina","Zhuxin","Zetian","Lylia"],
-GOLD:["Miya","Bruno","Clint","Layla","Moskov","Karrie","Irithel","Lesley","Claude","Kimmy","Granger","Wanwan","Beatrix","Natan","Melissa","Ixia","Brody","Hanabi","Popol and Kupa"],
-JUNGLE:["Saber","Karina","Fanny","Hayabusa","Lancelot","Gusion","Helcurt","Ling","Aamon","Nolan","Suyou","Julian","Roger","Balmond","Fredrinn","Barats","Joy","Baxia","Masha","Hirara","Sora"],
-ROAM:["Tigreal","Akai","Franco","Minotaur","Lolita","Johnson","Rafaela","Estes","Hilda","Gatotkaca","Grock","Hylos","Diggie","Khufra","Belerick","Angela","Kaja","Atlas","Carmilla","Mathilda","Gloo","Edith","Floryn","Chip","Faramis"]
+  EXP: [
+    "Aldous","Alice","Alpha","Alucard","Argus","Arlott","Badang","Balmond",
+    "Bane","Benedetta","Chou","Cici","Dyrroth","Edith","Esmeralda","Freya",
+    "Gatotkaca","Gloo","Guinevere","Hilda","Jawhead","Joy","Julian","Khaleed",
+    "Lapu-Lapu","Leomord","Lukas","Martis","Masha","Minsitthar","Paquito",
+    "Phoveus","Ruby","Silvanna","Sora","Sun","Suyou","Terizla","Thamuz",
+    "Uranus","X.Borg","Yin","Yu Zhong","Zilong"
+  ],
+
+  GOLD: [
+    "Beatrix","Brody","Bruno","Claude","Clint","Hanabi","Harith","Irithel",
+    "Ixia","Karrie","Kimmy","Layla","Lesley","Melissa","Miya","Moskov",
+    "Natan","Obsidia","Popol and Kupa","Roger","Wanwan"
+  ],
+
+  MID: [
+    "Alice","Aurora","Cecilion","Chang'e","Cyclops","Esmeralda","Eudora",
+    "Faramis","Gord","Harith","Harley","Julian","Kadita","Kagura","Kimmy",
+    "Lunox","Luo Yi","Lylia","Nana","Novaria","Odette","Pharsa","Selena",
+    "Vale","Valir","Valentina","Vexana","Xavier","Yve","Zetian","Zhask",
+    "Zhuxin"
+  ],
+
+  ROAM: [
+    "Akai","Angela","Atlas","Badang","Baxia","Belerick","Carmilla","Chip",
+    "Chou","Diggie","Edith","Estes","Faramis","Floryn","Franco","Gatotkaca",
+    "Gloo","Grock","Helcurt","Hilda","Hylos","Jawhead","Johnson","Kaja",
+    "Kalea","Khaleed","Khufra","Lolita","Marcel","Mathilda","Minotaur",
+    "Minsitthar","Natalia","Rafaela","Saber","Selena","Tigreal"
+  ],
+
+  JUNGLE: [
+    "Aamon","Akai","Alpha","Alucard","Aulus","Balmond","Bane","Barats",
+    "Baxia","Dyrroth","Fanny","Fredrinn","Freya","Granger","Gusion","Hanzo",
+    "Harley","Hayabusa","Helcurt","Hirara","Joy","Julian","Karina","Lancelot",
+    "Leomord","Ling","Lukas","Martis","Natalia","Nolan","Popol and Kupa",
+    "Roger","Saber","Sun","Suyou","Yi Sun-Shin","Yin"
+  ]
 };
+
 
 function getLane(hero){
     for(const lane in LANE_MAP){ if(LANE_MAP[lane].includes(hero)) return lane; }
