@@ -250,9 +250,20 @@ const LANE_MAP = {
 };
 
 
-function getLane(hero){
-    for(const lane in LANE_MAP){ if(LANE_MAP[lane].includes(hero)) return lane; }
-    return "EXP";
+function getLanes(hero) {
+    const lanes = [];
+
+    for (const lane in LANE_MAP) {
+        if (LANE_MAP[lane].includes(hero)) {
+            lanes.push(lane);
+        }
+    }
+
+    return lanes;
+}
+
+function hasLane(hero, lane) {
+    return LANE_MAP[lane]?.includes(hero) || false;
 }
 
 const SKIP_TOKEN = '__SKIPPED__';
@@ -1367,7 +1378,7 @@ function renderHeroGrid(){
     const heroesToShow = HEROES.filter(hero=>{
         if(local.searchQuery && !hero.toLowerCase().includes(local.searchQuery)) return false;
         if(local.filterMode === 'lane'){
-            if(local.laneFilter !== 'ALL' && getLane(hero) !== local.laneFilter) return false;
+            if(local.laneFilter !== 'ALL' && !hasLane(hero, local.laneFilter)) return false;
         } else {
             if(local.roleFilter !== 'ALL' && !hasRole(hero, local.roleFilter)) return false;
         }
@@ -1386,7 +1397,7 @@ function renderHeroGrid(){
         card.type = 'button';
         card.className = 'hero-card';
         card.dataset.role = getRoles(hero).join(',');
-        card.dataset.lane = getLane(hero);
+        card.dataset.lane = getLane(hero).join(',');
         if(locked) card.classList.add('hero-locked');
         if(pickedThisGame) card.classList.add('hero-picked');
         if(fearlessLocked) card.classList.add('hero-fearless');
