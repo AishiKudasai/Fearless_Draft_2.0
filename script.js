@@ -1397,7 +1397,7 @@ function renderHeroGrid(){
         card.type = 'button';
         card.className = 'hero-card';
         card.dataset.role = getRoles(hero).join(',');
-        card.dataset.lane = getLane(hero).join(',');
+        card.dataset.lane = getLanes(hero).join(',');
         if(locked) card.classList.add('hero-locked');
         if(pickedThisGame) card.classList.add('hero-picked');
         if(fearlessLocked) card.classList.add('hero-fearless');
