@@ -131,7 +131,7 @@ function escapeHtml(text){
 const HEROES = [
 "Miya","Balmond","Saber","Alice","Nana","Tigreal","Alucard","Karina","Akai","Franco",
 "Bane","Bruno","Clint","Rafaela","Eudora","Zilong","Fanny","Layla","Minotaur","Lolita",
-"Hayabusa","Freya","Gord","Natalia","Kagura","Sun","Alpha","Ruby","Yi Sun-shin","Moskov",
+"Hayabusa","Freya","Gord","Natalia","Kagura","Sun","Alpha","Ruby","Yi Sun-Shin","Moskov",
 "Johnson","Cyclops","Estes","Hilda","Aurora","Lapu-Lapu","Vexana","Roger","Karrie","Gatotkaca",
 "Irithel","Harley","Grock","Argus","Odette","Lancelot","Diggie","Hylos","Zhask","Helcurt",
 "Pharsa","Lesley","Jawhead","Angela","Gusion","Valir","Martis","Uranus","Hanabi","Chang'e",
@@ -185,15 +185,27 @@ const ROLE_MAP = {
   ],
 
   "SUPPORT": [
-    "Angela","Carmilla","Chip","Diggie","Estes","Floryn","Johnson","Kaja",
-    "Kalea","Lolita","Marcel","Mathilda","Minotaur","Rafaela"
-  ]
+  "Angela","Carmilla","Chip","Diggie","Estes","Faramis","Floryn",
+  "Johnson","Kaja","Kalea","Lolita","Marcel","Mathilda","Minotaur",
+  "Rafaela"
+]
 };
 
 
-function getRole(hero){
-    for(const role in ROLE_MAP){ if(ROLE_MAP[role].includes(hero)) return role; }
-    return "FIGHTER";
+function getRoles(hero) {
+    const roles = [];
+
+    for (const role in ROLE_MAP) {
+        if (ROLE_MAP[role].includes(hero)) {
+            roles.push(role);
+        }
+    }
+
+    return roles;
+}
+
+function hasRole(hero, role) {
+    return ROLE_MAP[role]?.includes(hero) || false;
 }
 
 const LANE_MAP = {
@@ -1357,7 +1369,7 @@ function renderHeroGrid(){
         if(local.filterMode === 'lane'){
             if(local.laneFilter !== 'ALL' && getLane(hero) !== local.laneFilter) return false;
         } else {
-            if(local.roleFilter !== 'ALL' && getRole(hero) !== local.roleFilter) return false;
+            if(local.roleFilter !== 'ALL' && !hasRole(hero, local.roleFilter)) return false;
         }
         return true;
     });
@@ -1373,7 +1385,7 @@ function renderHeroGrid(){
         const card = document.createElement('button');
         card.type = 'button';
         card.className = 'hero-card';
-        card.dataset.role = getRole(hero);
+        card.dataset.role = getRoles(hero).join(',');
         card.dataset.lane = getLane(hero);
         if(locked) card.classList.add('hero-locked');
         if(pickedThisGame) card.classList.add('hero-picked');
