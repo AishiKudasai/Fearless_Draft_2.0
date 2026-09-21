@@ -1190,8 +1190,8 @@ function renderFeatured(){
     if(status){
         status.innerHTML = `
             <span class="team-badge ${teamClass}">${escapeHtml(teamName)}</span>
-            <span class="role-badge">${escapeHtml(getRole(hero))}</span>
-            <span class="lane-badge">${escapeHtml(getLane(hero))}</span>
+            <span class="role-badge">${escapeHtml(getRoles(hero))}</span>
+            <span class="lane-badge">${escapeHtml(getLanes(hero))}</span>
         `;
     }
 
@@ -1437,7 +1437,7 @@ function showHeroPreview(hero, card){
     const img = preview.querySelector('img');
     loadHeroImage(img, hero, ['portrait','splash','icon']);
     preview.querySelector('.hp-name').textContent = hero;
-    preview.querySelector('.hp-role').textContent = `${getRole(hero)} • ${getLane(hero)}`;
+    preview.querySelector('.hp-role').textContent = `${getRoles(hero)} • ${getLanes(hero)}`;
     const rect = card.getBoundingClientRect();
     preview.style.left = Math.min(window.innerWidth - 190, rect.left) + 'px';
     preview.style.top = (rect.top - 210) + 'px';
